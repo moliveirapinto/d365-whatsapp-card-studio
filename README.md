@@ -8,6 +8,19 @@ Out of the box, a human agent in Dynamics 365 Contact Center can send text and f
 
 > Prefer to hand it over? **[Let Scout install it for you](#option-1-let-scout-install-it-recommended)**: paste one prompt (pick the Claude Sonnet 5.5 model) and Scout does the installation and the Dynamics 365 configuration.
 
+## What it looks like
+
+**Pick a message type, then a card, and see exactly how it looks on a phone.** Copilot suggests the best cards for the live conversation at the top of the list. The screenshots use a made-up customer.
+
+![Card Studio on a WhatsApp conversation: Copilot suggestions, message types and cards on the left, the editor in the middle and a live phone preview on the right](docs/images/card-studio-quick-replies.png)
+
+**List menus open like they do in WhatsApp.** Click the menu button in the preview to see the options sheet.
+
+![Card Studio showing a Help menu list and the phone preview with the options sheet open](docs/images/card-studio-list-menu.png)
+
+**Carousels become a photo and a card for each item**, using free Pexels photos you can swap for your own.
+
+![Card Studio showing a product carousel with photos, titles and buttons in the phone preview](docs/images/card-studio-carousel.png)
 ## What agents get
 
 | Message type | What the customer sees | Sent as |
