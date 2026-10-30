@@ -10,31 +10,34 @@ Out of the box, a human agent in Dynamics 365 Contact Center can send text and f
 
 ## What it looks like
 
-**Pick a message type, then a card, and see exactly how it looks on a phone.** Copilot suggests the best cards for the live conversation at the top of the list. The screenshots use a made-up customer.
+**Pick a message type, then a card, and see how it will look on a phone.** Copilot suggests the best cards for the live conversation at the top of the list. The screenshots use a made-up customer.
 
 ![Card Studio on a WhatsApp conversation: Copilot suggestions, message types and cards on the left, the editor in the middle and a live phone preview on the right](docs/images/card-studio-quick-replies.png)
 
-**List menus open like they do in WhatsApp.** Click the menu button in the preview to see the options sheet.
+**List menus:** click the menu button in the preview to open the options sheet. On this channel customers see the option titles only, so that is all the preview shows.
 
 ![Card Studio showing a Help menu list and the phone preview with the options sheet open](docs/images/card-studio-list-menu.png)
 
-**Carousels become a photo and a card for each item**, using free Pexels photos you can swap for your own.
+**Carousels become a photo and a card for each item**, one after the other, using free Pexels photos you can swap for your own. This channel has no swipeable carousel.
 
 ![Card Studio showing a product carousel with photos, titles and buttons in the phone preview](docs/images/card-studio-carousel.png)
+
 ## What agents get
 
-| Message type | What the customer sees | Sent as |
-|---|---|---|
-| **Quick replies** | Up to 3 tappable reply buttons | Native WhatsApp reply buttons |
-| **List menu** | A menu of up to 10 options | Native WhatsApp list (titles only) |
-| **Link button** | A button that opens a web page | Native WhatsApp link button |
-| **Carousel** | A photo and a card for each item | A short sequence of messages (see limits) |
-| **Ask for location** | A friendly note asking for a Maps link or address | Reply buttons plus text |
-| **Share a place** | Name, address and an Open in Maps button | Native WhatsApp link button |
+| Message type | What the customer gets | Sent as | Confirmed on a phone |
+|---|---|---|---|
+| **Quick replies** | Up to 3 tappable reply buttons | Native WhatsApp reply buttons | Yes |
+| **List menu** | A menu of up to 10 options, **titles only** | Native WhatsApp list | The menu, yes. The final wording and button text, not yet |
+| **Link button** | A button that opens a web page | Native WhatsApp link button | Yes |
+| **Carousel** | A photo and a card for each item, one after the other. **Not swipeable** | A short sequence of messages | The cards, yes. The photos reaching the customer, not yet |
+| **Ask for location** | A note asking for a Google or Apple Maps link or a typed address, with reply buttons. **It is not a location request**: this channel cannot send one and cannot receive location pins | Reply buttons plus text | The reply buttons, yes. The final wording, not yet |
+| **Share a place** | Name, address and an Open in Maps button | Native WhatsApp link button | Yes |
 
-- **30 ready-made cards** across those six types, each with a plain-English description of when to use it.
+See [Verification status](docs/KNOWN-GAPS.md#verification-status) for what was and was not checked.
+
+- **34 ready-made cards** across those six types, each with a plain-English description of when to use it.
 - **Message types drive the navigation.** Pick a type on the left, then one of its cards.
-- **Live phone preview** that mirrors how WhatsApp renders each message.
+- **Live phone preview** that approximates how WhatsApp shows each message, limited to what this channel delivers.
 - **Copilot suggestions** that read the live conversation and pick the best cards, refreshing as the chat moves on.
 - **Merge fields** for the customer's first name, the agent's name and the case.
 - **Your own cards:** edit any card, then save it as a new one. The internal description is never sent to customers.
@@ -44,9 +47,10 @@ Out of the box, a human agent in Dynamics 365 Contact Center can send text and f
 
 The first-party WhatsApp channel only converts three kinds of interactive content: **reply buttons (maximum 3), link buttons and choice lists**. Everything else is dropped or shown as text. These limits come from the channel, not from this add-on, and were tested on a real phone. The full list with evidence is in **[docs/KNOWN-GAPS.md](docs/KNOWN-GAPS.md)**. The main ones:
 
-- **No swipeable carousel** and **no images inside cards.** Carousels are sent as photo messages followed by a card with the title, description and link.
-- **No native "Send location" button**, and **customers' location pins arrive as "unsupported message type"** in the agent's panel. The Ask for location card asks for a Maps link or typed address instead.
-- List menus show option titles only.
+- **No swipeable carousel** and **no images inside cards.** A carousel is sent as photo messages, each followed by a card with the title, description and link. That the photos reach the customer has not been confirmed on a phone yet.
+- **No location request and no location pins.** The channel cannot send WhatsApp's "Send location" button, and a location pin shared by a customer shows up for the agent only as "Customer sent an unsupported message type", with no map or address. The Ask for location card asks for a Google or Apple Maps link or a typed address instead.
+- **List menus carry option titles only.** Descriptions, the section title and the menu button text are not delivered.
+- **The product's own Rich messages feature** (Copilot Service admin center) offers no cards or carousels for WhatsApp either.
 - Custom cards and edited descriptions are saved in the agent's browser, not shared with the team.
 
 ## Requirements
@@ -185,7 +189,7 @@ The installer is safe to run twice. It checks the environment, imports the manag
 
 ### Option 3. Import the solution yourself
 
-1. Download `WhatsAppCardStudio_1.0.0_managed.zip` from the [latest release](../../releases/latest).
+1. Download `WhatsAppCardStudio_1.0.1_managed.zip` from the [latest release](../../releases/latest).
 2. In the Power Apps maker portal, open **Solutions > Import solution** and import it.
 3. Add the tab to your forms: `node scripts/add-to-forms.mjs --org https://yourorg.crm.dynamics.com`, or add a new tab with a web resource control pointing at `wacs_/cards.html` on the conversation form.
 4. Optional: create the suggestion prompt with `node scripts/create-prompt.mjs --org https://yourorg.crm.dynamics.com`.

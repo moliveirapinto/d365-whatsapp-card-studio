@@ -659,7 +659,7 @@ function renderEditor(){
     h+=`<label>Section title <em>(optional)</em></label>`+inp("list.section",c.list.section,"Popular topics",24);
     h+=`<label>Options <em>(up to 10)</em></label><div class="rows">`+c.list.rows.map((r,i)=>row(`<span class="n">${i+1}</span>${inp("list.rows."+i+".t",r.t,"Title",24)}${inp("list.rows."+i+".d",r.d,"Description (optional)",72,"w2")}<button class="x" data-act="delRow" data-i="${i}" title="Remove">${ic("dismiss",16)}</button>`)).join("")+`</div>`;
     if(c.list.rows.length<10)h+=`<button class="add" data-act="addRow">${ic("add",16)}Add option</button>`;
-    h+=`<div class="note" style="padding:6px 0 0">Click the menu button in the phone preview to see how the list opens.</div>`;
+    h+=`<div class="note" style="padding:6px 0 0">On this channel customers see the option titles only. Descriptions, the section title and your button text are not delivered, so the preview does not show them. Click the menu button in the preview to see how the list opens.</div>`;
   }
   if(t==="carousel"){
     h+=`<label>Cards <em>(2 to 5)</em></label>`+c.items.map((it,i)=>`<div class="ccard"><div class="ch">${ic("image",16)}<span>Card ${i+1}</span>${c.items.length>2?`<button class="x" data-act="delCard" data-i="${i}" title="Remove card">${ic("dismiss",16)}</button>`:""}</div>${inp("items."+i+".img",it.img,"Image URL (https, optional)")}${row(inp("items."+i+".title",it.title,"Title",60)) }${row(inp("items."+i+".body",it.body,"Short description",160))}${row(`<span class="ic">${ic("open",16)}</span>${inp("items."+i+".l",it.l,"Button",20)}${inp("items."+i+".v",it.v,"https://",0,"w2")}`)}</div>`).join("");
@@ -717,7 +717,7 @@ function preview(){
   const ol=$("openList");if(ol)ol.onclick=()=>{S.sheet=true;preview()};
   const host=$("sheetHost");
   if(t==="list"&&S.sheet){
-    host.innerHTML=`<div class="shade" id="shade"></div><div class="sheet"><div class="sh"><span id="closeSheet">${ic("dismiss",24)}</span><b style="flex:1">${esc(fill(c.list.button||"Menu"))}</b></div><div class="sl">${c.list.section?`<div class="ss">${esc(fill(c.list.section))}</div>`:""}${c.list.rows.map(r=>`<div class="sr"><div>${esc(fill(r.t))}${r.d?`<small>${esc(fill(r.d))}</small>`:""}</div><i></i></div>`).join("")}</div><div class="sg"><div>Send</div></div></div>`;
+    host.innerHTML=`<div class="shade" id="shade"></div><div class="sheet"><div class="sh"><span id="closeSheet">${ic("dismiss",24)}</span><b style="flex:1">Menu</b></div><div class="sl">${c.list.rows.map(r=>`<div class="sr"><div>${esc(fill(r.t))}</div><i></i></div>`).join("")}</div><div class="sg"><div>Send</div></div></div>`;
     $("shade").onclick=$("closeSheet").onclick=()=>{S.sheet=false;preview()};
   }else host.innerHTML="";
 }

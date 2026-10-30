@@ -1,9 +1,10 @@
 {
   "name": "d365-whatsapp-card-studio",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Interactive WhatsApp messages for human agents in Dynamics 365 Contact Center: quick replies, list menus, link buttons, photo carousels and location messages, with Copilot suggestions.",
   "type": "module",
   "license": "MIT",
   "scripts": { "build": "node build/build.mjs", "install-solution": "node scripts/install.mjs" }
 }
+
